@@ -1,0 +1,38 @@
+import os
+#Переменная с папкой в которой находятся файлы для сортировки
+directory = 'E:\ForRND'
+
+#Создаем список со всеми именами файлов и папок в выбраной директории
+all_files = os.listdir(directory)
+
+# СЧЕТЧИКИ
+counter_files = 0
+counter_folders_1 = 0
+counter_folders_2 = 0
+
+for file in all_files:
+    filename = file.split(' ')
+    print(filename)
+    try:                                                                                     #создаем директорию 1
+        os.mkdir(path=(fr'{directory}\{filename[0]}'), mode=0o777, dir_fd=None)
+        counter_folders_1 += 1
+    except:
+        pass
+
+    try:                                                                                     #создаем директорию 2
+        os.mkdir(path=fr'{directory}\{filename[0]}\{filename[1]}', mode=0o777, dir_fd=None)
+        counter_folders_2 += 1
+    except:
+        pass
+
+    try:                                                                                      #Переносим файл в нужную директорию
+        dest = fr'{directory}\{filename[0]}\{filename[1]}\{file}'
+        src = fr'{directory}\{file}'
+        os.rename(src, dest)
+        counter_files += 1
+    except:
+        pass
+
+print(f'Итого перемещено файлов - {counter_files}')
+print(f'Итого созданно папок 1 уровня - {counter_folders_1}')
+print(f'Итого созданно папок 2 уровня - {counter_folders_2}')
