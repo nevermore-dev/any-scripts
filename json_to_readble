@@ -1,0 +1,16 @@
+import json
+
+def format_json(json_str):
+    try:
+        parsed = json.loads(json_str)
+        return json.dumps(parsed, indent=4, sort_keys=True)
+    except ValueError as e:
+        print("Error parsing JSON:", e)
+
+# Define your JSON-formatted string
+data = open('data.json', 'r')
+x = data.read()
+
+# Call the format_json() function on the JSON string
+with open('output', 'w+') as file:
+    file.write(format_json(x))
